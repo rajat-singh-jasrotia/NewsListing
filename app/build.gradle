@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+project.ext {
+    daggerVersion = "2.27"
+    rxJavaVersion = "3.0.11"
+    rxAndroidVersion = "3.0.0"
+    lifecycle_version = "2.3.1"
+    retrofitVersion = '2.7.0'
+    recyclerviewVersion = '1.2.0-alpha06'
+    cardviewVersion = '1.0.0'
+    constraintlayoutVersion = '2.0.1'
+    appcompatVersion = '1.1.0'
+    materialVersion = '1.2.0-alpha02'
+    circularimageviewVersion = '3.0.1'
+    picassoVersion = '2.71828'
+    coroutinesVersion = '1.4.3'
+    activity_version = "1.2.2"
+    multidex_version = "2.0.1"
+}
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.example.theustimes"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.4.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+    implementation "androidx.constraintlayout:constraintlayout:$project.constraintlayoutVersion"
+    //Recyclerview
+    implementation "androidx.recyclerview:recyclerview:$project.recyclerviewVersion"
+    //CardView
+    implementation "androidx.cardview:cardview:$cardviewVersion"
+    //Dagger
+    implementation "com.google.dagger:dagger:$project.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
+    // Lifecycle
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    // ReactiveX
+    implementation "io.reactivex.rxjava3:rxjava:$project.rxJavaVersion"
+    implementation "io.reactivex.rxjava3:rxandroid:$project.rxAndroidVersion"
+    //Picasso
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation("com.squareup.okhttp3:okhttp")
+
+    //Coroutines
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$project.lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$project.lifecycle_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$project.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$project.coroutinesVersion"
+    // Kotlin
+    implementation "androidx.activity:activity-ktx:$activity_version"
+    //Multidex
+    implementation "androidx.multidex:multidex:$multidex_version"
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
