@@ -53,8 +53,8 @@ class NetworkProviderImpl @Inject constructor(
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(getOkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .also {
                 if (baseUrl == networkConfiguration.getBaseUrl()) {

@@ -1,12 +1,11 @@
 package com.example.theustimes.app
 
 import android.app.Application
-import com.example.theustimes.di.component.ApplicationComponent
-import com.example.theustimes.di.component.DaggerApplicationComponent
-import com.example.theustimes.di.modules.ApplicationModule
+import com.example.theustimes.di.DaggerProvider
+import com.example.theustimes.di.component.AppComponent
 
 class MyApplication: Application() {
-    private lateinit var mAppComponent: ApplicationComponent
+    private lateinit var mAppComponent: AppComponent
 
     init {
         instance_ = this
@@ -20,12 +19,8 @@ class MyApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
-
-        mAppComponent =
-            DaggerApplicationComponent.builder()
-                .applicationModule(ApplicationModule())
-                .build()
+        DaggerProvider.initComponent(this)
+        DaggerProvider.getAppComponent()?.inject(this)
     }
 
-    fun getAppComponent() = mAppComponent
 }
