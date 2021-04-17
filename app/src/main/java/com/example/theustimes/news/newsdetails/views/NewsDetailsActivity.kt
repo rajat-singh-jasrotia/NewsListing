@@ -15,6 +15,7 @@ import com.example.theustimes.news.models.Articles
 import com.example.theustimes.news.newsdetails.viewmodel.NewsDetailsViewModel
 import com.example.theustimes.news.newsdetails.viewmodel.NewsDetailsViewModelFactory
 import com.example.theustimes.utils.Result
+import com.example.theustimes.utils.Util
 import javax.inject.Inject
 
 class NewsDetailsActivity :
@@ -25,6 +26,9 @@ class NewsDetailsActivity :
 
     @Inject
     lateinit var viewModelFactory: NewsDetailsViewModelFactory
+
+    @Inject
+    lateinit var util: Util
 
     private val newsDetailsViewModel by viewModels<NewsDetailsViewModel>(factoryProducer = { viewModelFactory })
 
@@ -77,11 +81,7 @@ class NewsDetailsActivity :
 
     private fun updateArticleData() {
         supportActionBar?.title = "Details"
-        val articleID = getArticleID(newsDetailsViewModel.article.url)
+        val articleID = util.getArticleID(newsDetailsViewModel.article.url)
         newsDetailsViewModel.fetchData(articleID)
-    }
-
-    fun getArticleID(url: String): String {
-        return url.replace("/", "-")
     }
 }

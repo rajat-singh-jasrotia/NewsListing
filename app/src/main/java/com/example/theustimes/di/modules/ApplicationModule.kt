@@ -13,6 +13,7 @@ import com.example.theustimes.news.newslisting.repository.NewsListingRepository
 import com.example.theustimes.news.newslisting.repository.NewsListingRepositoryImpl
 import com.example.theustimes.news.newslisting.usecase.NewsListingUseCase
 import com.example.theustimes.news.newslisting.usecase.NewsListingUseCaseImpl
+import com.example.theustimes.utils.Util
 import com.example.theustimes.utils.errorProvider.ErrorProvider
 import com.example.theustimes.utils.errorProvider.ErrorProviderImpl
 import com.google.gson.Gson
@@ -87,5 +88,9 @@ class ApplicationModule(private val application: MyApplication) {
             networkConfiguration.getSocialEngineUrl()
         )
     }
+
+    @Singleton
+    @Provides
+    fun provideUtil(): Util = Util()
 
 }
