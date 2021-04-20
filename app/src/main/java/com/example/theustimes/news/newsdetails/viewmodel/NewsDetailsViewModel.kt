@@ -8,10 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.theustimes.news.models.Articles
 import com.example.theustimes.news.models.LikesAndCommentsApiResponse
 import com.example.theustimes.news.newsdetails.usecase.NewsDetailsUseCase
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import com.example.theustimes.utils.Result
-import com.example.theustimes.utils.errorProvider.ErrorProvider
+import kotlinx.coroutines.launch
+import com.example.theustimes.errorProvider.ErrorProvider
 
 class NewsDetailsViewModel(
     private val newsDetailsUseCase: NewsDetailsUseCase,
@@ -19,9 +18,8 @@ class NewsDetailsViewModel(
 ) : ViewModel() {
 
     lateinit var article: Articles
-
-    var likes: ObservableField<Int> = ObservableField(0)
-    var comments: ObservableField<Int> = ObservableField(0)
+    var likesText: ObservableField<String> = ObservableField("Like")
+    var commentTxt: ObservableField<String> = ObservableField("Comment")
 
     private val _requestLikesLiveData: MutableLiveData<Result<LikesAndCommentsApiResponse>> = MutableLiveData()
     val requestLikesLiveData: LiveData<Result<LikesAndCommentsApiResponse>>
@@ -39,27 +37,59 @@ class NewsDetailsViewModel(
         return null
     }
 
+    fun updateCommentData(comments: Int?) {
+        comments?.let {
+            when {
+                it > 1 -> {
+                    commentTxt.set("$it Comments")
+                }
+                it == 1 -> {
+                    commentTxt.set("$it Comment")
+                }
+                else -> {
+                    commentTxt.set("Comment")
+                }
+            }
+        }
+    }
+
+    fun updateLikesData(likes: Int?) {
+        likes?.let {
+            when {
+                it > 1 -> {
+                    likesText.set("$it Likes")
+                }
+                it == 1 -> {
+                    likesText.set("$it Like")
+                }
+                else -> {
+                    likesText.set("Like")
+                }
+            }
+        }
+    }
+
     fun fetchData(articleId: String) {
         getLikes(articleId)
         getComments(articleId)
     }
 
-    private fun getLikes(articleId: String) {
+    fun getLikes(articleId: String) {
         viewModelScope.launch {
             try {
-                _requestLikesLiveData.postValue(Result.Success(newsDetailsUseCase.getLikes(articleId)))
+                _requestLikesLiveData.postValue(Result.success(newsDetailsUseCase.getLikes(articleId)))
             } catch (exception: Exception) {
-                _requestLikesLiveData.postValue(Result.Error(errorProvider.getErrorMessage(exception)))
+                _requestLikesLiveData.postValue(Result.error(errorProvider.getErrorMessage(exception)))
             }
         }
     }
 
-    private fun getComments(articleId: String) {
+    fun getComments(articleId: String) {
         viewModelScope.launch {
             try {
-                _requestCommentsLiveData.postValue(Result.Success(newsDetailsUseCase.getComments(articleId)))
+                _requestCommentsLiveData.postValue(Result.success(newsDetailsUseCase.getComments(articleId)))
             } catch (exception: Exception) {
-                _requestCommentsLiveData.postValue(Result.Error(errorProvider.getErrorMessage(exception)))
+                _requestCommentsLiveData.postValue(Result.error(errorProvider.getErrorMessage(exception)))
             }
         }
     }

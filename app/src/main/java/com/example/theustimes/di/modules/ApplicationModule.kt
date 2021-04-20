@@ -14,13 +14,12 @@ import com.example.theustimes.news.newslisting.repository.NewsListingRepositoryI
 import com.example.theustimes.news.newslisting.usecase.NewsListingUseCase
 import com.example.theustimes.news.newslisting.usecase.NewsListingUseCaseImpl
 import com.example.theustimes.utils.Util
-import com.example.theustimes.utils.errorProvider.ErrorProvider
-import com.example.theustimes.utils.errorProvider.ErrorProviderImpl
+import com.example.theustimes.errorProvider.ErrorProvider
+import com.example.theustimes.errorProvider.ErrorProviderImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import java.util.*
 import javax.inject.Singleton
 
 @Module

@@ -1,9 +1,7 @@
-package com.example.theustimes.utils.errorProvider
+package com.example.theustimes.errorProvider
 
-import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
-import java.io.IOException
 import java.net.*
 
 class ErrorProviderImpl: ErrorProvider {

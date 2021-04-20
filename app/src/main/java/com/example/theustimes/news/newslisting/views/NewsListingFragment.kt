@@ -16,11 +16,12 @@ import com.example.theustimes.news.newslisting.viewmodel.NewsListingViewModelFac
 import com.example.theustimes.news.newslisting.views.adapter.NewsItemClickListener
 import com.example.theustimes.news.newslisting.views.adapter.NewsListAdapter
 import com.example.theustimes.utils.Constants
+import com.example.theustimes.utils.Status
 import javax.inject.Inject
-import com.example.theustimes.utils.Result
 
 /**
- * A simple [Fragment] subclass.
+ * A simple [Fragment] subclass to show News Listing.
+ *
  * Use the [NewsListingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
@@ -71,24 +72,24 @@ class NewsListingFragment:
 
     private fun setupObserver() {
         newsListingViewModel.resultNewsList.observe(this, Observer {
-            when (it) {
-                is Result.Loading -> {
+            when (it.status) {
+                Status.LOADING -> {
                     newsListingViewModel.errorVisibility.set(false)
                     newsListingViewModel.progressBarState.set(true)
                     newsListingViewModel.recyclerViewState.set(false)
                 }
-                is Result.Error -> {
+                Status.ERROR -> {
                     newsListingViewModel.swipeLoadingVisibility.set(false)
                     newsListingViewModel.progressBarState.set(false)
                     newsListingViewModel.recyclerViewState.set(false)
-                    newsListingViewModel.errorMsg.set(it.errorMessage)
+                    newsListingViewModel.errorMsg.set(it.message)
                     newsListingViewModel.errorVisibility.set(true)
                 }
-                is Result.Success -> {
+                Status.SUCCESS -> {
                     newsListingViewModel.swipeLoadingVisibility.set(false)
                     newsListingViewModel.progressBarState.set(false)
                     newsListingViewModel.recyclerViewState.set(true)
-                    setAdapter(it.data)
+                    it.data?.let { it1 -> setAdapter(it1) }
                     newsListingViewModel.errorVisibility.set(false)
                 }
             }
@@ -96,18 +97,16 @@ class NewsListingFragment:
     }
 
     private fun setAdapter(data: List<Articles> = emptyList()) {
-        if (newsListAdapter == null)
+        if (newsListAdapter == null) {
             newsListAdapter = NewsListAdapter(newsItemClickListener = this)
-
+        }
         newsListAdapter?.updateAll(data.toMutableList())
     }
 
     override fun onNewsItemClicked(article: Articles) {
-        val bundle = Bundle()
-        bundle.putParcelable("data", article)
-        val intent = Intent(activity, NewsDetailsActivity::class.java)
-        intent.putExtras(bundle)
-        startActivity(intent)
+        startActivity(
+            NewsDetailsActivity.getIntent(requireActivity(), article)
+        )
     }
 
 }

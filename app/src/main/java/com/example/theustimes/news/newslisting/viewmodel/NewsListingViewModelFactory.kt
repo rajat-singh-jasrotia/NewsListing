@@ -3,7 +3,7 @@ package com.example.theustimes.news.newslisting.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.theustimes.news.newslisting.usecase.NewsListingUseCase
-import com.example.theustimes.utils.errorProvider.ErrorProvider
+import com.example.theustimes.errorProvider.ErrorProvider
 import javax.inject.Inject
 
 class NewsListingViewModelFactory @Inject constructor(

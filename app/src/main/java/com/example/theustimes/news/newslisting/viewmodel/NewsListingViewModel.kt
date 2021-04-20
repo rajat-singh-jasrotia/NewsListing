@@ -1,6 +1,5 @@
 package com.example.theustimes.news.newslisting.viewmodel
 
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,10 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.theustimes.news.models.Articles
 import com.example.theustimes.news.newslisting.usecase.NewsListingUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import com.example.theustimes.utils.Result
-import com.example.theustimes.utils.errorProvider.ErrorProvider
+import kotlinx.coroutines.launch
+import com.example.theustimes.errorProvider.ErrorProvider
 
 class NewsListingViewModel(
     private val newsListingUseCase: NewsListingUseCase,
@@ -31,13 +29,13 @@ class NewsListingViewModel(
         get() = _resultNewsList
 
     fun fetchNewsData(country: String, apiKey: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             try {
-                _resultNewsList.postValue(Result.Loading)
+                _resultNewsList.postValue(Result.loading())
                 val response = newsListingUseCase.getTopNews(country, apiKey)
-                _resultNewsList.postValue(Result.Success(response.articles))
+                _resultNewsList.postValue(Result.success(response.articles))
             } catch (exception: Exception) {
-                _resultNewsList.postValue(Result.Error(errorProvider.getErrorMessage(exception)))
+                _resultNewsList.postValue(Result.error(errorProvider.getErrorMessage(exception)))
             }
         }
     }

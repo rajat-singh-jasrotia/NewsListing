@@ -7,4 +7,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="actionBarSize">46dp</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="actionMenuTextColor">@color/white</item> <!-- Needed for Android L -->
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="android:buttonStyle">@style/Base.Widget.AppCompat.Button.Colored</item>
+    </style>
+
 </resources>

@@ -12,22 +12,23 @@ class ResultTest {
 
     @Test
     fun `should return loading when status is loading`() {
-        val givenViewState = Result.Loading
+        val givenViewState = Result.loading<Any>()
         assertNotNull(givenViewState)
-        assertEquals(givenViewState, Result.Loading)
+        assertEquals(Status.LOADING, givenViewState.status)
     }
 
     @Test
     fun `should return success when status is success`() {
-        val givenViewState = Result.Success(emptyList<Articles>())
+        val givenViewState = Result.success(emptyList<Articles>())
         assertNotNull(givenViewState)
-        assertEquals(givenViewState.data.size, 0)
+        assertEquals(Status.SUCCESS, givenViewState.status)
     }
 
     @Test
     fun `should return error when status is error`() {
-        val givenViewState = Result.Error("500 Internal Server Error")
+        val givenViewState = Result.error<Any>("500 Internal Server Error")
         assertNotNull(givenViewState)
-        assertNotNull(givenViewState.errorMessage)
+        assertNotNull(givenViewState.message)
+        assertEquals(Status.ERROR, givenViewState.status)
     }
 }

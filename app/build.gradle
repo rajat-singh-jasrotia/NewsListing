@@ -17,8 +17,8 @@ project.ext {
     circularimageviewVersion = '3.0.1'
     picassoVersion = '2.71828'
     coroutinesVersion = '1.4.3'
-    activity_version = "1.2.2"
-    multidex_version = "2.0.1"
+    activityVersion = "1.2.2"
+    multidexVersion = "2.0.1"
     fragmentKTX = '1.3.0'
     junitVersion = "4.12"
     androidXTestExtKotlinRunnerVersion = '1.1.1'
@@ -33,6 +33,7 @@ project.ext {
     kotlinCoroutineVersion = "1.4.2"
     hamcrestLibVersion = "1.3"
     coroutines = "1.3.1"
+    materialDesignVersion = "1.3.0"
 }
 android {
     compileSdkVersion 30
@@ -110,9 +111,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$project.coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$project.coroutinesVersion"
     // Kotlin
-    implementation "androidx.activity:activity-ktx:$activity_version"
+    implementation "androidx.activity:activity-ktx:$activityVersion"
     //Multidex
-    implementation "androidx.multidex:multidex:$multidex_version"
+    implementation "androidx.multidex:multidex:$multidexVersion"
+    //material design
+    implementation "com.google.android.material:material:$materialDesignVersion"
 
     // Test
     androidTestImplementation "androidx.annotation:annotation:${androidXAnnotation}"
