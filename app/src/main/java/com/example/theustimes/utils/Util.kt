@@ -37,7 +37,6 @@ class Util {
                 }
             }
         }
-        return ""
     }
 
     fun getJSONObjectFromRawResource(context: Context?, resourceId: Int): JSONObject {
